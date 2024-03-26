@@ -42,9 +42,6 @@ class MovingObject(pygame.sprite.Sprite):
         elif self.kind == 'Bullet':
             self.rect.centerx = self.x + self.vx * self.t
             self.rect.centery = self.y - self.vy * self.t + g * self.t * self.t / 2
-            '''self.rect.centerx = self.rect.centerx + self.vx * dt
-            self.rect.centery = self.rect.centery - self.vy * dt + g * dt * dt / 2
-            self.vy = self.vy - g * dt'''
         self.t += dt
 
 
@@ -76,10 +73,6 @@ class Bullet(MovingObject):
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
         MovingObject.__init__(self)
-
-    # a_f = (Cf * pi * r ** 2 * pв * v ** 2) / (2 * pж * 4/3 * pi * r ** 3) =>
-    # => a_f = (Cf * pв * v ** 2) / (2 * pж * 4/3 * r)
-    # a_f = (0.20 * 1.225 * self.v ** 2) / (2 * 7.8 * 4 / 3 * 0.5)
 
 
 class Rocket(MovingObject):
@@ -180,7 +173,6 @@ class Radar():
                     self.res.append((i - n, 0, int(dist)))
             else:
                 n += 1
-        #self.res = tuple(self.res)
         print('SCANNINIG:', ', '.join(str(el) for el in self.res))
 
 
@@ -236,9 +228,9 @@ if __name__ == '__main__':
 
         radar.scan(rockets)
 
-        # Ввод процесса (события)
+        # Ввод события
         for event in pygame.event.get():
-            # check for closing window
+            # выход из игры
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.KEYUP:
